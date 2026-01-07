@@ -1,3 +1,5 @@
+# Create main Resource Group
+
 terraform {
   required_version = ">= 1.6.0"
 
@@ -24,8 +26,24 @@ resource "azurerm_resource_group" "openemr_dev" {
     env        = "dev"
     app        = "openemr"
     owner      = "Josh Hall"
-    costCenter = "personal-lab"
+    costCenter = "platform-ops"
     compliance = "hipaa-pcidss"
   }
 }
- 
+
+# Established tag scheme
+
+locals {
+  common_tags = {
+    env                = "dev"
+    app                = "openemr"
+    owner              = "cloud-ops"
+    costCenter         = "platform-ops"
+    compliance         = "hipaa-pcidss"
+    dataClassification = "phi-pci"
+    project            = "azure-healthcare-platform"
+    createdBy          = "terraform"
+  }
+}
+
+
