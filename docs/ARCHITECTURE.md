@@ -61,4 +61,24 @@ Azure Resource Group in `eastus` that contains all dev resources for the OpenEMR
 - Azure CLI (initial bootstrap, one-time):  
   `az group create --name rg-openemr-dev-eus --location eastus --tags env=dev app=openemr owner="Josh Hall" costCenter=personal-lab compliance=hipaa-pcidss`.
 
+### Budget and Cost Alerts
+
+**Purpose:**  
+Proactive cost monitoring to prevent unexpected charges and enforce financial discipline for the OpenEMR platform.
+
+**Implementation:**
+
+- **Scope:** Resource group `rg-openemr-dev-eus`.
+- **Budget:** $50/month.
+- **Alerts:**
+  - 50% actual spend → Azure mobile app push + email.
+  - 80% actual spend → Azure mobile app push + email.
+  - 100% forecasted spend → Azure mobile app push + email.
+- **Tooling:** Defined in Terraform (`terraform/monitoring.tf`), using variables for email (stored in `terraform.tfvars`, not committed).
+- **Notification channels:** Azure mobile app (iOS) + email backup.
+
+**Future Enhancements:**
+
+- Expand to tag-based budgets for multi-environment tracking (`env=test`, `env=prod`).
+- Integrate with Logic Apps to auto-shutdown dev resources when budget is breached.
 
