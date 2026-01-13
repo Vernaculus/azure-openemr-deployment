@@ -15,7 +15,7 @@ provider "azurerm" {
   features {}
   # Disable automatic provider registration since the SP lacks subscription-level rights
   resource_provider_registrations = "none"
-  subscription_id = "316876d9-f38d-4fd5-8371-f0be2df0eb1a"
+  subscription_id                 = "316876d9-f38d-4fd5-8371-f0be2df0eb1a"
 
 }
 
@@ -61,10 +61,10 @@ resource "azurerm_monitor_action_group" "budget_alerts" {
   # Email receiver as backup
   email_receiver {
     name          = "email-backup"
-    email_address = var.alert_email  # Reference variable instead of hardcoding.
+    email_address = var.alert_email # Reference variable instead of hardcoding.
   }
 
-  tags= local.common_tags
+  tags = local.common_tags
 }
 
 # Consumption Budget for the OpenEMR dev resource group
@@ -92,13 +92,13 @@ resource "azurerm_consumption_budget_resource_group" "openemr_dev_budget" {
 
   # Alert at 80% actual spend
   notification {
-     enabled   = true
-     threshold = 80
-     operator  = "GreaterThan"
+    enabled   = true
+    threshold = 80
+    operator  = "GreaterThan"
 
-     contact_groups = [
-       azurerm_monitor_action_group.budget_alerts.id
-     ]
+    contact_groups = [
+      azurerm_monitor_action_group.budget_alerts.id
+    ]
   }
 
   # Alert at 100% forecasted spend

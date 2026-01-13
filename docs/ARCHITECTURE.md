@@ -61,7 +61,7 @@ Azure Resource Group in `eastus` that contains all dev resources for the OpenEMR
 - Azure CLI (initial bootstrap, one-time):  
   `az group create --name rg-openemr-dev-eus --location eastus --tags env=dev app=openemr owner="Josh Hall" costCenter=personal-lab compliance=hipaa-pcidss`.
 
-### Budget and Cost Alerts
+***Budget and Cost Alerts***
 
 **Purpose:**  
 Proactive cost monitoring to prevent unexpected charges and enforce financial discipline for the OpenEMR platform.
