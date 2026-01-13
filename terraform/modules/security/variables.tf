@@ -1,7 +1,6 @@
-variable "alert_email" {
+variable "resource_group_name" {
   type        = string
-  description = "Email address for budget alerts and monitoring notifications"
-  sensitive   = true # Marks this as sensitive so it won't show in plan output
+  description = "Resource group name for Key Vault"
 }
 
 variable "sp_client_id" {
@@ -27,3 +26,13 @@ variable "admin_ip" {
   description = "Admin IP for Key Vault network ACL"
 }
 
+variable "tags" {
+  type        = map(string)
+  description = "Common tags for resources"
+}
+ 
+
+variable "location" {
+  type        = string
+  description = "Azure region for Key Vault"
+}

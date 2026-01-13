@@ -26,8 +26,8 @@ resource "azurerm_resource_group" "openemr_dev" {
   tags = {
     env        = "dev"
     app        = "openemr"
-    owner      = "Josh Hall"
-    costCenter = "personal-lab"
+    owner      = "cloud-ops"
+    costCenter = "platform-ops"
     compliance = "hipaa-pcidss"
   }
 }
@@ -113,3 +113,25 @@ resource "azurerm_consumption_budget_resource_group" "openemr_dev_budget" {
     ]
   }
 }
+
+# Calls the security module to create Key Vault and manage secrets
+module "security" {
+  # Path to the security module directory
+  source = "./modules/security"
+
+  # Passes resource group name from root module to security module
+  resource_group_name = azurerm_resource_group.openemr_dev.name
+  # Passes Azure region to security module
+  location            = azurerm_resource_group.openemr_dev.location
+  # Passes service principal client ID for Key Vault secret storage
+  sp_client_id        = var.sp_client_id
+  # Passes service principal client secret for Key Vault secret storage
+  sp_client_secret    = var.sp_client_secret
+  # Passes tenant ID for Key Vault secret storage
+  sp_tenant_id        = var.sp_tenant_id
+  # Passes admin IP for Key Vault firewall whitelist
+  admin_ip            = var.admin_ip
+  # Passes common tags from local values for resource tagging
+  tags                = local.common_tags
+}
+ 
